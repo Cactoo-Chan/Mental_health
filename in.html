@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Evaluator</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #B2CBDE; /* Light pastel background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #304674; /* Pastel Pink */
+            padding: 20px;
+            text-align: center;
+            color: #FFF;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            background-color: #98BAD5; /* Pastel Green */
+            padding: 10px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: #FFF;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #D8E1E8; /* Light background for content */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #304674; /* Dark Blue */
+            font-size: 2em;
+            margin-top: 0;
+        }
+        h3 {
+            color: #304674; /* Dark Blue */
+            font-size: 1.5em;
+        }
+        .form-section, .calculator-section, .info-section {
+            margin-bottom: 40px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="number"], select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #DDD;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input[type="submit"], button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4B6285; /* Pastel Blue */
+            color: #FFF;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #8AA4C5; /* Darker Blue */
+        }
+        .calculator-container {
+            background-color: #F9F9F9; /* Light grey background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .calculator-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .calculator-container input[type="number"] {
+            width: calc(100% - 22px);
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #304674; /* Dark Blue */
+            padding: 20px;
+            text-align: center;
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mental Health Evaluator</h1>
+    </header>
+    <nav>
+        <a href="https://www.cdc.gov/mentalhealth/learn/index.htm#:~:text=Mental%20health%20includes%20our%20emotional,others%2C%20and%20make%20healthy%20choices.&text=Mental%20health%20is%20important%20at,childhood%20and%20adolescence%20through%20adulthood.h">Mental Health & Suicide Risk</a>
+        <a href="https://www.camh.ca/en/professionals/treating-conditions-and-disorders/suicide-risk">Suicide Risk</a>
+        <a href="https://www.mayoclinic.org/diseases-conditions/depression/expert-answers/depression-and-anxiety/faq-20057989">Anxiety & Depression</a>
+        <a href="https://www.canada.ca/en/public-health/services/mental-health-services/mental-health-get-help.html">Seek Help</a>
+    </nav>
+
+    <div class="container">
+        <section id="depression-info" style="background-color: white;">
+            <h2>What is Depression and How Does It Affect Us?</h2>
+            <div id="depression-info-content" class="content">
+                <ul>
+                    <li><strong>What is Depression?</strong> A mental health disorder with persistent sadness, hopelessness, and loss of interest.</li>
+                    <li><strong>Impact of Diet:</strong> Balanced diet supports mental health; poor diet can worsen symptoms.</li>
+                    <li><strong>Alcohol and Drugs:</strong> Alcohol is a depressant and can exacerbate symptoms; drugs can interfere with medications.</li>
+                    <li><strong>Caffeine:</strong> Moderate intake may improve mood; excessive caffeine can increase anxiety and disrupt sleep.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="depression-score-intro" style="background-color: white;">
+            <h2>Introduction to the Depression Score Calculator</h2>
+            <div id="depression-score-intro-content" class="content">
+                <ul>
+                    <li><strong>Purpose:</strong> Helps assess the severity of depressive symptoms based on various inputs.</li>
+                    <li><strong>Insights:</strong> Provides information on how lifestyle choices affect mental health.</li>
+                    <li><strong>Scoring System:</strong> Our Model is trained on the NHANES dataset and can help you evaluate the primary screening for depression.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="diet-score-intro" style="background-color: white;">
+            <h2>How Our Model Calculates Your Depression Score</h2>
+            <p>Our Depression Score Calculator evaluates your depression risk by considering multiple factors, including diet, lifestyle choices, and more. By analyzing these inputs, the model helps identify areas that may contribute to your mental health.</p>
+
+            <h3>How Diet Can Affect Mood</h3>
+            <p>Diet plays a significant role in mental health. Consuming a balanced diet rich in essential nutrients can positively impact your mood and overall mental well-being. Conversely, poor dietary choices can lead to mood fluctuations and exacerbate depressive symptoms.</p>
+
+            <h3>Introducing the Diet Score Calculator</h3>
+            <p>The Diet Score Calculator evaluates your diet based on key nutritional criteria. This tool helps you understand how well your diet aligns with recommended dietary guidelines and its potential impact on your mental health.</p>
+            <h3>How It Works</h3>
+            <p>The Diet Score Calculator assesses six important dietary factors:</p>
+            <ul>
+                <li><strong>Calories:</strong> Your daily caloric intake should be within the range of 1500 to 2500 kcal to meet general dietary guidelines.</li>
+                <li><strong>Protein:</strong> Aim for a daily intake of 50 to 70 grams to support body functions and muscle maintenance.</li>
+                <li><strong>Carbohydrates:</strong> A range of 200 to 300 grams is recommended to provide energy and maintain healthy blood sugar levels.</li>
+                <li><strong>Sugars:</strong> Keeping sugar intake to 50 grams or less helps reduce the risk of chronic diseases like diabetes.</li>
+                <li><strong>Fiber:</strong> Consuming 25 to 35 grams of fiber supports digestive health and can reduce the risk of certain diseases.</li>
+                <li><strong>Fat:</strong> A daily fat intake between 50 and 70 grams helps balance energy needs while supporting overall health.</li>
+            </ul>
+
+            <h3>Scoring Your Diet</h3>
+            <p>The calculator scores your diet based on whether your intake for each factor meets the recommended ranges. Each factor that aligns with the guidelines contributes to your total score, with a maximum score of 4. Achieving the highest score indicates that your diet is well-balanced according to WHO’s recommendations.</p>
+
+            <h3>Achieving the Best Score</h3>
+            <p>To achieve a perfect score of 4, ensure that:</p>
+            <ul>
+                <li>Your caloric intake is between 1500 and 2500 kcal.</li>
+                <li>You consume 50 to 70 grams of protein daily.</li>
+                <li>Your carbohydrate intake is between 200 and 300 grams.</li>
+                <li>Sugars are limited to 50 grams or less.</li>
+                <li>Your fiber intake falls between 25 and 35 grams.</li>
+                <li>Fat intake is maintained between 50 and 70 grams.</li>
+            </ul>
+            <p>Following these guidelines can help you maintain a balanced and healthy diet, contributing to overall well-being and potentially supporting mental health.</p>
+        </section>
+
+        <section class="calculator-section">
+            <div class="calculator-container">
+                <h3>Diet Score Calculator</h3>
+                <label for="calories">Calories:</label>
+                <input type="number" id="calories" placeholder="Enter daily calories">
+
+                <label for="protein">Protein (g):</label>
+                <input type="number" id="protein" placeholder="Enter daily protein intake">
+
+                <label for="carbohydrates">Carbohydrates (g):</label>
+                <input type="number" id="carbohydrates" placeholder="Enter daily carbohydrates intake">
+
+                <label for="sugars">Sugars (g):</label>
+                <input type="number" id="sugars" placeholder="Enter daily sugars intake">
+
+                <label for="fiber">Fiber (g):</label>
+                <input type="number" id="fiber" placeholder="Enter daily fiber intake">
+
+                <label for="fat">Fat (g):</label>
+                <input type="number" id="fat" placeholder="Enter daily fat intake">
+
+                <button onclick="calculateDietScore()">Calculate Diet Score</button>
+
+                <div class="result" id="dietResult"></div>
+            </div>
+        </section>
+
+        <section class="calculator-section">
+            <div class="calculator-container">
+                <h3>Health Score Calculator</h3>
+                <label for="bmi">Body Mass Index (BMI):</label>
+                <input type="number" id="bmi" placeholder="Enter BMI" step="0.1">
+
+                <label for="waist_ratio">Waist-to-Height Ratio:</label>
+                <input type="number" id="waist_ratio" placeholder="Enter Waist-to-Height Ratio" step="0.01">
+
+                <label for="bp_diff">Blood Pressure Difference (Systolic - Diastolic):</label>
+                <input type="number" id="bp_diff" placeholder="Enter BP Difference" step="1">
+
+                <label for="mean_bp">Mean Blood Pressure:</label>
+                <input type="number" id="mean_bp" placeholder="Enter Mean BP" step="1">
+
+                <button onclick="calculateHealthScore()">Calculate Health Score</button>
+
+                <div class="result" id="healthResult"></div>
+            </div>
+        </section>
+
+
+          <section id="questionnaire-guide" style="background-color: white;">
+    <h2>How to Fill Out the Questionnaire</h2>
+    <p>Please provide the following information to complete the questionnaire:</p>
+
+    <div class="guide-content">
+        <h3>General Information</h3>
+        <ul>
+            <li><strong>Age:</strong> Enter your age in years.</li>
+            <li><strong>Gender:</strong> Select your gender (1= male or 2=female).</li>
+            <li><strong>Race:</strong>
+                <ul>
+                    <li>1: Mexican American</li>
+                    <li>2: Other Hispanic</li>
+                    <li>3: Non-Hispanic White</li>
+                    <li>4: Non-Hispanic Black</li>
+                    <li>5: Other Race - Including Multi-Racial</li>
+                </ul>
+            </li>
+            <li><strong>Marital Status:</strong>
+                <ul>
+                    <li>1: Married</li>
+                    <li>2: Widowed</li>
+                    <li>3: Divorced</li>
+                    <li>4: Separated</li>
+                    <li>5: Never married</li>
+                    <li>6: Living with partner</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Additional Details</h3>
+        <ul>
+            <li><strong>Education Level:</strong>
+                <ul>
+                    <li>1: Less than 9th grade</li>
+                    <li>2: 9-11th grade (Includes 12th grade with no diploma)</li>
+                    <li>3: High school graduate/GED or equivalent</li>
+                    <li>4: Some college or AA degree</li>
+                    <li>5: College graduate or above</li>
+                </ul>
+            </li>
+            <li><strong>Occupation:</strong>
+                <ul>
+                    <li>1: Working at a business</li>
+                    <li>2: Working at a job</li>
+                    <li>3: Looking for work</li>
+                </ul>
+            </li>
+            <li><strong>Marijuana Use:</strong>
+                <ul>
+                    <li>1: Yes</li>
+                    <li>2: No</li>
+                </ul>
+            </li>
+            <li><strong>Sleep Trouble:</strong>
+                <ul>
+                    <li>1: Yes</li>
+                    <li>2: No</li>
+                </ul>
+            </li>
+             <li><strong>Alcohol:</strong>
+                <ul>
+                    <li>1: Yes</li>
+                    <li>2: No</li>
+                </ul>
+            </li>
+            <li><strong>Coffee/Tea:</strong>
+                <ul>
+                    <li>1: Yes</li>
+                    <li>2: No</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+<div class="form-section" style="text-align: left; margin: 0;">
+    <form method="post" action="/predict">
+        <h2>Please fill out the following questionnaire:</h2>
+
+        <label for="Gender">Gender</label>
+        <select id="Gender" name="Gender" required>
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+        </select>
+
+        <label for="Age">Age</label>
+        <input type="number" id="Age" name="Age" required>
+
+        <label for="Race_Ethnicity">Race/Ethnicity</label>
+        <select id="Race_Ethnicity" name="Race_Ethnicity" required>
+            <option value="1">Mexican American</option>
+            <option value="2">Other Hispanic</option>
+            <option value="3">Non-Hispanic White</option>
+            <option value="4">Non-Hispanic Black</option>
+            <option value="5">Other Race - Including Multi-Racial</option>
+        </select>
+
+        <label for="Education_Level_Adults">Education Level (Adults)</label>
+        <select id="Education_Level_Adults" name="Education_Level_Adults" required>
+            <option value="1">Less than 9th grade</option>
+            <option value="2">9-11th grade (Includes 12th grade with no diploma)</option>
+            <option value="3">High school graduate/GED or equivalent</option>
+            <option value="4">Some college or AA degree</option>
+            <option value="5">College graduate or above</option>
+        </select>
+
+        <label for="Marital_Status">Marital Status</label>
+        <select id="Marital_Status" name="Marital_Status" required>
+            <option value="1">Married</option>
+            <option value="2">Widowed</option>
+            <option value="3">Divorced</option>
+            <option value="4">Separated</option>
+            <option value="5">Never married</option>
+            <option value="6">Living with partner</option>
+        </select>
+
+        <label for="Occupation_Status">Occupation Status</label>
+        <select id="Occupation_Status" name="Occupation_Status" required>
+            <option value="1">Working at a business</option>
+            <option value="2">Working at a job</option>
+            <option value="3">Looking for work</option>
+        </select>
+
+        <label for="Marijuana_Use">Marijuana Use</label>
+        <select id="Marijuana_Use" name="Marijuana_Use" required>
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+        </select>
+
+        <label for="Sleep_Trouble">Sleep Trouble</label>
+        <select id="Sleep_Trouble" name="Sleep_Trouble" required>
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+        </select>
+
+        <label for="Coffee_Tea">Coffee/Tea</label>
+        <select id="Coffee_Tea" name="Coffee_Tea" required>
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+        </select>
+
+        <label for="Alcohol">Alcohol</label>
+        <select id="Alcohol" name="Alcohol" required>
+            <option value="1">Yes</option>
+            <option value="2">No</option>
+        </select>
+
+        <label for="Diet_Quality_Score">Diet Quality Score</label>
+        <input type="number" id="Diet_Quality_Score" name="Diet_Quality_Score" required>
+
+        <label for="Health_Score">Health Score</label>
+        <input type="number" id="Health_Score" name="Health_Score" step="any" required>
+
+        <input type="submit" value="Predict">
+
+    </form>
+
+    <!-- The Modal -->
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="result">
+            <p>🎉 {{ result }} 🎉</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .result {
+        font-size: 1.5em;
+        color: #4CAF50; /* Green color for success */
+    }
+</style>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("resultModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the page loads, open the modal if there's a result
+    window.onload = function() {
+        {% if result %}
+            modal.style.display = "block";
+        {% endif %}
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>
+
+</div>
+        <section id="further-resources">
+            <h2>Further Resources and Information</h2>
+            <ul>
+                <li><a href="https://www.cdc.gov/mentalhealth/learn/index.htm#:~:text=Mental%20health%20includes%20our%20emotional,others%2C%20and%20make%20healthy%20choices.&text=Mental%20health%20is%20important%20at,childhood%20and%20adolescence%20through%20adulthood.h" target="_blank">CDC - Mental Health Overview</a></li>
+                <li><a href="https://www.camh.ca/en/professionals/treating-conditions-and-disorders/suicide-risk" target="_blank">CAMH - Suicide Risk</a></li>
+                <li><a href="https://www.mayoclinic.org/diseases-conditions/depression/expert-answers/depression-and-anxiety/faq-20057989" target="_blank">Mayo Clinic - Depression and Anxiety</a></li>
+                <li><a href="https://www.canada.ca/en/public-health/services/mental-health-services/mental-health-get-help.html" target="_blank">Canada Health - Get Help</a></li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Mental Health Evaluator. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function calculateDietScore() {
+            var calories = document.getElementById('calories').value;
+            var protein = document.getElementById('protein').value;
+            var carbohydrates = document.getElementById('carbohydrates').value;
+            var sugars = document.getElementById('sugars').value;
+            var fiber = document.getElementById('fiber').value;
+            var fat = document.getElementById('fat').value;
+
+            var score = (protein * 0.1) + (carbohydrates * 0.2) - (sugars * 0.3) + (fiber * 0.4) - (fat * 0.2);
+            document.getElementById('dietResult').innerText = 'Your Diet Score is: ' + score.toFixed(2);
+        }
+
+        function calculateHealthScore() {
+            var bmi = document.getElementById('bmi').value;
+            var waistRatio = document.getElementById('waist_ratio').value;
+            var bpDiff = document.getElementById('bp_diff').value;
+            var meanBP = document.getElementById('mean_bp').value;
+
+            var score = (bmi * 0.2) + (waistRatio * 0.3) - (bpDiff * 0.25) - (meanBP * 0.25);
+            document.getElementById('healthResult').innerText = 'Your Health Score is: ' + score.toFixed(2);
+        }
+    </script>
+</body>
+</html>

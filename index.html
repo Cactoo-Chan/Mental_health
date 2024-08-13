@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depression Prediction Tool</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #B2CBDE; /* Light pastel background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #304674; /* Pastel Pink */
+            padding: 20px;
+            text-align: center;
+            color: #FFF;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            background-color: #98BAD5; /* Pastel Green */
+            padding: 10px 20px;
+            text-align: center;
+        }
+        nav a {
+            color: #FFF;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #D8E1E8; /* White background for content */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-section, .calculator-section, .info-section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #6984A3; /* Dark Green */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"], input[type="number"], select {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #DDD;
+            border-radius: 5px;
+        }
+        input[type="submit"], button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4B6285; /* Pastel Green */
+            color: #FFF;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #8AA4C5; /* Dark Red */
+        }
+        footer {
+            background-color: #6984A3; /* Pastel Pink */
+            padding: 20px;
+            text-align: center;
+            color: #FFF;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mental Health Evaluator</h1>
+    </header>
+    <nav>
+        <a href="https://www.cdc.gov/mentalhealth/learn/index.htm#:~:text=Mental%20health%20includes%20our%20emotional,others%2C%20and%20make%20healthy%20choices.&text=Mental%20health%20is%20important%20at,childhood%20and%20adolescence%20through%20adulthood.h">Mental Health & Suicide Risk</a>
+        <a href="https://www.camh.ca/en/professionals/treating-conditions-and-disorders/suicide-risk">Suicide Risk</a>
+        <a href="https://www.mayoclinic.org/diseases-conditions/depression/expert-answers/depression-and-anxiety/faq-20057989">Anxiety & Depression</a>
+        <a href="https://www.canada.ca/en/public-health/services/mental-health-services/mental-health-get-help.html">Seek Help</a>
+    </nav>
+
+    <div class="container">
+        <section id="depression-info">
+            <h2>What is Depression and How Does It Affect Us?</h2>
+            <div id="depression-info-content" class="content">
+                <ul>
+                    <li><strong>What is Depression?</strong> A mental health disorder with persistent sadness, hopelessness, and loss of interest.</li>
+                    <li><strong>Impact of Diet:</strong> Balanced diet supports mental health; poor diet can worsen symptoms.</li>
+                    <li><strong>Alcohol and Drugs:</strong> Alcohol is a depressant and can exacerbate symptoms; drugs can interfere with medications.</li>
+                    <li><strong>Caffeine:</strong> Moderate intake may improve mood; excessive caffeine can increase anxiety and disrupt sleep.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="depression-score-intro">
+            <h2>Introduction to the Depression Score Calculator</h2>
+            <div id="depression-score-intro-content" class="content">
+                <ul>
+                    <li><strong>Purpose:</strong> Helps assess the severity of depressive symptoms based on various inputs.</li>
+                    <li><strong>Insights:</strong> Provides information on how lifestyle choices affect mental health.</li>
+                    <li><strong>Scoring System:</strong> Our Model is trained on the NHANES dataset and can help you evaluate the primary screening for depression.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <section id="diet-score-intro">
+            <h2>How Our Model Calculates Your Depression Score</h2>
+            <p>Our Depression Score Calculator evaluates your depression risk by considering multiple factors, including diet, lifestyle choices, and more. By analyzing these inputs, the model helps identify areas that may contribute to your mental health.</p>
+
+            <h3>How Diet Can Affect Mood</h3>
+            <p>Diet plays a significant role in mental health. Consuming a balanced diet rich in essential nutrients can positively impact your mood and overall mental well-being. Conversely, poor dietary choices can lead to mood fluctuations and exacerbate depressive symptoms.</p>
+
+            <h3>Introducing the Diet Score Calculator</h3>
+            <p>The Diet Score Calculator evaluates your diet based on key nutritional criteria. This tool helps you understand how well your diet aligns with recommended dietary guidelines and its potential impact on your mental health.</p>
+        </section>
+            <h2>Understanding Your Diet Score</h2>
+            <p>Our Diet Score Calculator helps you evaluate the quality of your diet based on key nutritional criteria. This tool is designed to provide insights into how well your daily intake aligns with recommended dietary guidelines. The scoring system is based on principles from the World Health Organization (WHO), which emphasizes balanced nutrition for overall health.</p>
+
+            <h3>How It Works</h3>
+            <p>The Diet Score Calculator assesses six important dietary factors:</p>
+            <ul>
+                <li><strong>Calories:</strong> Your daily caloric intake should be within the range of 1500 to 2500 kcal to meet general dietary guidelines.</li>
+                <li><strong>Protein:</strong> Aim for a daily intake of 50 to 70 grams to support body functions and muscle maintenance.</li>
+                <li><strong>Carbohydrates:</strong> A range of 200 to 300 grams is recommended to provide energy and maintain healthy blood sugar levels.</li>
+                <li><strong>Sugars:</strong> Keeping sugar intake to 50 grams or less helps reduce the risk of chronic diseases like diabetes.</li>
+                <li><strong>Fiber:</strong> Consuming 25 to 35 grams of fiber supports digestive health and can reduce the risk of certain diseases.</li>
+                <li><strong>Fat:</strong> A daily fat intake between 50 and 70 grams helps balance energy needs while supporting overall health.</li>
+            </ul>
+
+            <h3>Scoring Your Diet</h3>
+            <p>The calculator scores your diet based on whether your intake for each factor meets the recommended ranges. Each factor that aligns with the guidelines contributes to your total score, with a maximum score of 4. Achieving the highest score indicates that your diet is well-balanced according to WHO’s recommendations.</p>
+
+            <h3>Achieving the Best Score</h3>
+            <p>To achieve a perfect score of 4, ensure that:</p>
+            <ul>
+                <li>Your caloric intake is between 1500 and 2500 kcal.</li>
+                <li>You consume 50 to 70 grams of protein daily.</li>
+                <li>Your carbohydrate intake is between 200 and 300 grams.</li>
+                <li>Sugars are limited to 50 grams or less.</li>
+                <li>Your fiber intake falls between 25 and 35 grams.</li>
+                <li>Fat intake is maintained between 50 and 70 grams.</li>
+            </ul>
+            <p>Following these guidelines can help you maintain a balanced and healthy diet, contributing to overall well-being and potentially supporting mental health.</p>
+            <!-- Questionnaire Guide -->
+        <section id="questionnaire-guide">
+            <h2>How to Fill Out the Questionnaire</h2>
+            <p>Please provide the following information to complete the questionnaire:</p>
+            <ul>
+                <li><strong>Age:</strong> Enter your age in years.</li>
+                <li><strong>Gender:</strong> Select your gender (male or female).</li>
+                <li><strong>Race:</strong> Choose from the following options:
+                    <ul>
+                        <li>1: Mexican American</li>
+                        <li>2: Other Hispanic</li>
+                        <li>3: Non-Hispanic White</li>
+                        <li>4: Non-Hispanic Black</li>
+                        <li>5: Other Race - Including Multi-Racial</li>
+                    </ul>
+                </li>
+                <li><strong>Marital Status:</strong> Select your marital status:
+                    <ul>
+                        <li>1: Married</li>
+                        <li>2: Widowed</li>
+                        <li>3: Divorced</li>
+                        <li>4: Separated</li>
+                        <li>5: Never married</li>
+                        <li>6: Living with partner</li>
+                        <li>77: Refused</li>
+                        <li>99: Don't know</li>
+                    </ul>
+                </li>
+                <li><strong>Education Level:</strong> Select your education level:
+                    <ul>
+                        <li>1: Less than 9th grade</li>
+                        <li>2: 9-11th grade (Includes 12th grade with no diploma)</li>
+                        <li>3: High school graduate/GED or equivalent</li>
+                        <li>4: Some college or AA degree</li>
+                        <li>5: College graduate or above</li>
+                        <li>7: Refused</li>
+                        <li>9: Don't know</li>
+                    </ul>
+                </li>
+                <li><strong>Type of Work Done Last Week:</strong> Choose from:
+                    <ul>
+                        <li>1: Working at a job or business</li>
+                        <li>2: With a job or business but not at work</li>
+                        <li>3: Looking for work</li>
+                        <li>4: Not working at a job or business</li>
+                        <li>9: Don't know</li>
+                    </ul>
+                </li>
+                <li><strong>Marijuana Use:</strong> Select Yes or No:
+                    <ul>
+                        <li>1: Yes</li>
+                        <li>2: No</li>
+                        <li>7: Refused</li>
+                        <li>9: Don't know</li>
+                    </ul>
+                </li>
+                <li><strong>Sleep Trouble:</strong> Select Yes or No:
+                    <ul>
+                        <li>1: Yes</li>
+                        <li>2: No</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </div>
+            <p><strong>Health Score Calculator:</strong> This tool provides an overall health score based on key metrics including Body Mass Index (BMI), Waist-to-Height Ratio, Blood Pressure Difference, Mean Blood Pressure, and Blood Pressure Category. The score is computed using weighted factors and normalized to a range of 0 to 100.</p>
+            <p>Both calculators follow guidelines and recommendations for assessing diet and health, including those provided by the World Health Organization (WHO).</p>
+        </div>
+
+        <div class="form-section">
+            <form method="post" action="/predict">
+                <h2>Please fill out the following questionnaire:</h2>
+
+                <!-- Form fields for user input -->
+                <label>Gender</label><br>
+                <input type="text" name="Gender"><br><br>
+
+                <label>Age</label><br>
+                <input type="text" name="Age"><br><br>
+
+                <label>Race_Ethnicity</label><br>
+                <input type="text" name="Race_Ethnicity"><br><br>
+
+                <label>Education_Level_Adults</label><br>
+                <input type="text" name="Education_Level_Adults"><br><br>
+
+                <label>Marital_Status</label><br>
+                <input type="text" name="Marital_Status"><br><br>
+
+                <label>Occupation_Status</label><br>
+                <input type="text" name="Occupation_Status"><br><br>
+
+                <label>Marijuana_Use</label><br>
+                <input type="text" name="Marijuana_Use"><br><br>
+
+                <label>Sleep_Trouble</label><br>
+                <input type="text" name="Sleep_Trouble"><br><br>
+
+                <label>Alcohol</label><br>
+                <input type="text" name="Alcohol"><br><br>
+
+                <label>Diet_Quality_Score</label><br>
+                <input type="text" name="Diet_Quality_Score"><br><br>
+
+                <label>Health_Score</label><br>
+                <input type="text" name="Health_Score"><br><br>
+
+                <label>Coffee_Tea</label><br>
+                <input type="text" name="Coffee_Tea"><br><br>
+
+                <input type="submit" value="Predict"><br><br>
+
+                {% if result %}
+                    <p>{{ result }}</p>
+                {% endif %}
+            </form>
+        </div>
+
+        <!-- Diet and Health Score Calculators -->
+        <div class="calculator-section">
+            <h2>Diet and Health Score Calculators</h2>
+
+            <!-- Diet Score Calculator -->
+            <div class="calculator-container">
+                <h3>Diet Score Calculator</h3>
+                <label for="calories">Calories:</label>
+                <input type="number" id="calories" placeholder="Enter daily calories">
+
+                <label for="protein">Protein (g):</label>
+                <input type="number" id="protein" placeholder="Enter daily protein intake">
+
+                <label for="carbohydrates">Carbohydrates (g):</label>
+                <input type="number" id="carbohydrates" placeholder="Enter daily carbohydrates intake">
+
+                <label for="sugars">Sugars (g):</label>
+                <input type="number" id="sugars" placeholder="Enter daily sugars intake">
+
+                <label for="fiber">Fiber (g):</label>
+                <input type="number" id="fiber" placeholder="Enter daily fiber intake">
+
+                <label for="fat">Fat (g):</label>
+                <input type="number" id="fat" placeholder="Enter daily fat intake">
+
+                <button onclick="calculateDietScore()">Calculate Diet Score</button>
+
+                <div class="result" id="dietResult"></div>
+            </div>
+
+            <!-- Health Score Calculator -->
+            <div class="calculator-container">
+                <h3>Health Score Calculator</h3>
+                <label for="bmi">Body Mass Index (BMI):</label>
+                <input type="number" id="bmi" placeholder="Enter BMI" step="0.1">
+
+                <label for="waist_ratio">Waist-to-Height Ratio:</label>
+                <input type="number" id="waist_ratio" placeholder="Enter Waist-to-Height Ratio" step="0.01">
+
+                <label for="bp_diff">Blood Pressure Difference (Systolic - Diastolic):</label>
+                <input type="number" id="bp_diff" placeholder="Enter BP Difference" step="1">
+
+                <label for="mean_bp">Mean Blood Pressure:</label>
+                <input type="number" id="mean_bp" placeholder="Enter Mean BP" step="1">
+
+                <label for="bp_cat">Blood Pressure Category:</label>
+                <select id="bp_cat">
+                    <option value="1">Normal</option>
+                    <option value="2">Elevated</option>
+                    <option value="3">Hypertension Stage 1</option>
+                    <option value="4">Hypertension Stage 2</option>
+                </select>
+
+                <button onclick="calculateHealthScore()">Calculate Health Score</button>
+
+                <div class="result" id="healthResult"></div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 Depression Prediction Tool. All rights reserved.</p>
+    </footer>
+    <script>
+        function calculateDietScore() {
+            // Define criteria ranges
+            const calorie_min = 1500, calorie_max = 2500;
+            const protein_min = 50, protein_max = 70;
+            const carbs_min = 200, carbs_max = 300;
+            const sugar_max = 50;
+            const fiber_min = 25, fiber_max = 35;
+            const fat_min = 50, fat_max = 70;
+
+            // Get user inputs
+            const calories = parseInt(document.getElementById('calories').value);
+            const protein = parseInt(document.getElementById('protein').value);
+            const carbohydrates = parseInt(document.getElementById('carbohydrates').value);
+            const sugars = parseInt(document.getElementById('sugars').value);
+            const fiber = parseInt(document.getElementById('fiber').value);
+            const fat = parseInt(document.getElementById('fat').value);
+
+            // Calculate score
+            let score = 0;
+            if (calories >= calorie_min && calories <= calorie_max) score++;
+            if (protein >= protein_min && protein <= protein_max) score++;
+            if (carbohydrates >= carbs_min && carbohydrates <= carbs_max) score++;
+            if (sugars <= sugar_max) score++;
+            if (fiber >= fiber_min && fiber <= fiber_max) score++;
+            if (fat >= fat_min && fat <= fat_max) score++;
+
+            // Display result
+            document.getElementById('dietResult').textContent = "Your Diet Score: " + score + "/6";
+        }
+
+        function calculateHealthScore() {
+            // Get user inputs
+            const bmi = parseFloat(document.getElementById('bmi').value);
+            const waist_ratio = parseFloat(document.getElementById('waist_ratio').value);
+            const bp_diff = parseFloat(document.getElementById('bp_diff').value);
+            const mean_bp = parseFloat(document.getElementById('mean_bp').value);
+            const bp_cat = parseInt(document.getElementById('bp_cat').value);
+
+            // Calculate score (example weights and calculations)
+            let score = 100;
+            score -= Math.abs(21.7 - bmi) * 2; // BMI deviation penalty
+            score -= waist_ratio * 20; // Waist ratio penalty
+            score -= bp_diff * 0.5; // BP difference penalty
+            score -= (mean_bp - 90) * 0.2; // Mean BP deviation penalty
+            score -= bp_cat * 5; // BP category penalty
+
+            // Normalize score between 0 and 100
+            score = Math.max(0, Math.min(100, score));
+
+            // Display result
+            document.getElementById('healthResult').textContent = "Your Health Score: " + score.toFixed(2) + "/100";
+        }
+    </script>
+</body>
+</html>
